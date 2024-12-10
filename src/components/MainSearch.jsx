@@ -1,45 +1,22 @@
 import { Container, Row, Col, Form } from "react-bootstrap";
 import Job from "./Job";
 import { useDispatch, useSelector } from "react-redux";
-import { handleSubmit, searchResults, setQuery } from "../redux/actions";
+import { getJobs } from "../redux/actions";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const MainSearch = () => {
   const dispatch = useDispatch();
 
-  // const [query, setQuery] = useState("");
-  // const [jobs, setJobs] = useState([]);
+  const [query, setQuery] = useState("");
 
-  // const baseEndpoint = "https://strive-benchmark.herokuapp.com/api/jobs?search=";
-
-  const query = useSelector((state) => state.query);
-  const jobs = useSelector((state) => state.jobs);
+  const jobs = useSelector((state) => state.jobs.content);
   console.log(jobs);
 
   const handleChange = (e) => {
-    // setQuery(e.target.value);
-    dispatch(setQuery(e.target.value));
+    setQuery(e.target.value);
   };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     const response = await fetch(baseEndpoint + query + "&limit=20");
-  //     if (response.ok) {
-  //       const { data } = await response.json();
-  //       setJobs(data);
-  //       console.log(data);
-  //       data.map((job) => {
-  //         dispatch(searchResults(job.company_name));
-  //       });
-  //     } else {
-  //       alert("Error fetching results");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
+  console.log(jobs);
   return (
     <Container>
       <Row>
@@ -50,14 +27,21 @@ const MainSearch = () => {
           <Form
             onSubmit={(e) => {
               e.preventDefault();
-              dispatch(handleSubmit(query));
+              dispatch(getJobs(query));
             }}
           >
             <Form.Control type="search" value={query} onChange={handleChange} placeholder="type and press Enter" />
           </Form>
         </Col>
         <Col xs={10} className="mx-auto mb-5">
-          {jobs & (jobs.length > 0) && jobs.map((jobData) => <Job key={jobData._id} data={jobData} />)}
+          <Row className="my-3">
+            <Col>
+              <Link to="/favourites">Go to favourites</Link>
+            </Col>
+          </Row>
+          {jobs.map((jobData) => (
+            <Job key={jobData._id} data={jobData} />
+          ))}
         </Col>
       </Row>
     </Container>

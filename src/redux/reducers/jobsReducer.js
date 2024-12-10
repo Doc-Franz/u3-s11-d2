@@ -1,13 +1,13 @@
 import { JOBS } from "../actions";
 
 const initialState = {
-  job: []
+  content: []
 };
 
 const jobsReducer = (state = initialState, action) => {
   switch (action.type) {
     case JOBS:
-      return { ...state, jobs: action.payload };
+      return { ...state, content: action.payload };
     default:
       return state;
   }
