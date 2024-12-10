@@ -1,9 +1,11 @@
 export const ADD_TO_FAVOURITES = "ADD_TO_FAVOURITES";
 export const SEARCH_RESULTS = "SEARCH_RESULTS";
 export const JOBS = "JOBS";
+export const REMOVE_FROM_FAVOURITES = "REMOVE_FROM_FAVOURITES";
 
 export const addToFavourites = (companyName) => ({ type: ADD_TO_FAVOURITES, payload: companyName });
-export const searchResults = (companyName) => ({ type: SEARCH_RESULTS, payload: companyName });
+export const removeFromFavourites = (companyName) => ({ type: REMOVE_FROM_FAVOURITES, payload: companyName });
+export const searchResults = (index) => ({ type: SEARCH_RESULTS, payload: index });
 export const setJobs = (jobs) => ({ type: JOBS, payload: jobs });
 
 export const getJobs = (query) => {
